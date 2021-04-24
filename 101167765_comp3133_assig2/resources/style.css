@@ -1,0 +1,59 @@
+html, body {
+
+    margin: 0px;
+
+}
+
+.user {
+
+   float:right;
+   margin-right: 30px;
+   line-height: 50px;
+
+}
+
+
+.content {
+
+    margin-top: 20px;
+}
+.book {
+
+    float: left;
+    width: 25%;
+    text-align: center;
+    height: 400px;
+}
+.book img {
+    width: 250px;
+    height: 250px;
+
+}
+.book p {
+
+
+    margin: auto;
+    width: 70%;
+    max-height: 40px;
+    word-wrap:break-word;
+    word-break:break-all;
+    overflow: hidden;
+}
+
+.book-add-item{
+
+    margin-top: 10px;
+
+}
+
+.book-add-item-name {
+
+    display: inline-block;
+    width: 100px;
+}
+
+.hotel-add {
+    margin: auto;
+    width: 500px;
+
+}

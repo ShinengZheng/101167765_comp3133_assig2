@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Register</title>
+	<link rel="stylesheet" href="/resources/bootstrap.min.css">
+	<script src="/resources/jquery.min.js"></script>
+	<script src="/resources/bootstrap.min.js"></script>
+    <style>
+    .login-div {
+        width: 400px;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        border: 1px solid transparent;
+        border-color: #e7e7e7;
+    }
+
+    </style>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">HOTEL</a>
+	</div>
+
+</nav>
+
+<div class="login-div">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Register</a>
+        </div>
+    </nav>
+
+
+    <div style="clear:both"></div>
+    <form role="form" method="post" action="/register" id="registerform">
+ 
+    <div class="form-group">
+        <input type="text" name="username" class="form-control" id="username" placeholder="username" />
+    </div>
+    <div class="form-group">
+        <input type="password" name="password" class="form-control" id="password" placeholder="password" />
+    </div>    
+    <div class="form-group">
+        <input type="password" name="repassword" class="form-control" id="repassword" placeholder="re-password" />
+    </div> 
+    <div class="form-group">
+        <input type="text" name="email" class="form-control" id="email" placeholder="email" />
+    </div>        
+
+    
+    <button type="button" onclick="check();">register</button>
+    <a href="login">login</a>
+
+    </form>
+
+</div>
+
+</nav>
+
+
+<script type="text/javascript" >
+    
+    function check() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var repassword = document.getElementById("repassword").value;
+        var email = document.getElementById("email").value;
+        if(username == "" || password == "" || repassword == "" || email == "") {
+            alert("param null");
+            return;
+        }
+        if(password != repassword) {
+            alert("password != repasswd");
+            return;
+
+        }
+        document.getElementById("registerform").submit();
+    }
+    
+</script>
+
+</body>
+
+
+</html>

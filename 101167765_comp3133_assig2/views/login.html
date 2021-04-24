@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="/resources/bootstrap.min.css">
+	<script src="/resources/jquery.min.js"></script>
+	<script src="/resources/bootstrap.min.js"></script>
+
+    <style>
+    .login-div {
+        width: 400px;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        border: 1px solid transparent;
+        border-color: #e7e7e7;
+    }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">HOTEL</a>
+	</div>
+
+</nav>
+
+<div class="login-div">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Login</a>
+        </div>
+    </nav>
+
+
+    <div style="clear:both"></div>
+    <form role="form" method="post" action="/login" id="loginform">
+ 
+    <div class="form-group">
+        <input type="text" name="username" class="form-control" id="username" placeholder="username" />
+    </div>
+    <div class="form-group">
+        <input type="password" name="password" class="form-control" id="password" placeholder="password" />
+    </div>    
+    <button type="submit" class="btn btn-default">Login</button>
+    <a href="register">register</a>
+
+    </form>
+
+</div>
+
+</nav>
+
+</body>
+
+<script>
+    function submit() {
+        document.getElementById("loginform").submit();
+    }
+
+
+    
+    
+</script>
+
+</html>

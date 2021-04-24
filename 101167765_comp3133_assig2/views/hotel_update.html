@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>book update</title>
+	<link rel="stylesheet" href="/resources/bootstrap.min.css">
+	<script src="/resources/jquery.min.js"></script>
+	<script src="/resources/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/resources/style.css">   
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">HOTEL</a>
+        </div>
+        <span class="user">hello, <%= username %>, <a href="logout" >logout</a></span>
+            
+    
+    </nav>  
+    <nav class="navbar navbar-default" role="navigation">
+    <div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="hotels">Hotels</a></li>
+			<li><a href="books">My Books Hotels</a></li>
+			
+		</ul>
+	</div>  
+    </nav>  
+
+
+
+
+    <div class="hotel-add">
+        <h3>hotel update</h3>   
+          <form class="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;'>
+            <input type="hidden" id="_id" value="<%=hotel._id%>"/>
+          <div class="book-add-item">
+              <span class="book-add-item-name">hotel_name:</span>
+              
+              <input type="text"  id="hotel_name"  value="<%=hotel.hotel_name%>"/> </div>
+    
+          <div class="book-add-item">
+          <span class="book-add-item-name">street:</span>
+              <input type="text" id="street" value="<%=hotel.street%>"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">city:</span>
+          <input type="text" id="city" value="<%=hotel.city%>"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">postal_code:</span>
+          <input type="text"  id="postal_code"  value="<%=hotel.postal_code%>"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">price:</span>
+          <input type="text" id="price" name="price" value="<%=hotel.price%>"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">email:</span>
+          <input type="text" id="email" name="email" value="<%=hotel.email%>"/> </div>
+          <div class="book-add-item">
+
+          <span class="book-add-item-name">image:</span>
+ 
+          <%if(hotel.image != "noimage"){%>
+            <img src="/<%=hotel.image %>"  width="150px" height="150px"/> <br/>
+          <%}else{%>
+            no image <br/>
+          <%}%>       
+          <input type="file" id="pic" name="pic"/>      
+        
+          </div>
+          
+    
+    
+          <div class="book-add-item"></div><button type="button" onclick="update()">save</button></div>
+          </form>
+      </div>    
+
+
+</body>
+</html>
+
+<script>
+
+    function update() {
+
+        var _id=$("#_id").val();
+        let file = document.getElementById("pic").files[0];
+        var hotel_name=$.trim($("#hotel_name").val());
+        var street=$.trim($("#street").val());
+        var city=$.trim($("#city").val());
+        var postal_code=$.trim($("#postal_code").val());
+        var price=$.trim($("#price").val());
+        var email=$.trim($("#email").val());
+
+
+        var formData = new FormData();
+        formData.append("pic",file);
+
+        formData.append("hotel_name",hotel_name);
+        formData.append("street",street);
+        formData.append("city",city);
+        formData.append("postal_code",postal_code);
+        formData.append("price",price);
+        formData.append("email",email);        
+
+        formData.append("_id",_id);
+
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/hotel_update',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //$(".newImg").attr("src", data.filePath);
+                if(data.err){
+                    // alert(data.message);
+                    
+
+                    alert(data.msg);
+                }else{
+                    window.location.href='/';
+
+                }
+
+            },
+            error: function (err) {
+                console.log(err.message);
+            }
+        })
+
+
+
+
+    }
+
+</script>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels</title>
+	<link rel="stylesheet" href="/resources/bootstrap.min.css">
+	<script src="/resources/jquery.min.js"></script>
+	<script src="/resources/bootstrap.min.js"></script>
+    
+    <script src="/resources/angular.min.js"></script>
+    <link rel="stylesheet" href="/resources/style.css">
+</head>
+<body ng-app="hotelapp">
+
+    <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">HOTEL</a>
+        </div>
+        <span class="user">hello, <%= username %>, <a href="logout" >logout</a></span>
+            
+    
+    </nav>  
+    <nav class="navbar navbar-default" role="navigation">
+    <div>
+		<ul class="nav navbar-nav">
+			<li ng-class="{ 'active' : data.current == 1 }" ng-click="actions.setCurrent(1)"><a href="#">Hotels</a></li>
+            <li ng-class="{ 'active' : data.current == 2 }" ng-click="actions.setCurrent(2)"><a href="#">Add Hotels</a></li>
+			<li ng-class="{ 'active' : data.current == 3 }" ng-click="actions.setCurrent(3)"><a href="#">My Books Hotels</a></li>
+			
+		</ul>
+	</div>  
+    </nav>    
+
+    <!--
+  
+    <div class="hotel_add" style="float:right;margin-right: 10px;margin-bottom: 20px;">
+        
+        <a href="hotel_add"><input type=button value="Add Hotel"></input></a>
+   </div>  
+
+    -->
+   <div id="hotels" ng-if="data.current == 1">
+ 
+   <form role="form" method="get" action="/hotels" id="loginform">
+ 
+
+    <input type="text" style="width: 200px;" name="hotel_name" class="form-control" id="hotel_name" placeholder="hotel_name" />
+
+    <input type="text" style="width: 200px;" name="city" class="form-control" id="city" placeholder="city" />
+  
+    <button type="submit" class="btn btn-default">search</button>
+
+
+    </form>  
+
+
+   <div style="clear:both"></div>
+    <div class="content">
+
+        <% for(var i=0;i<hotelList.length;i++){%>
+
+        <div class="book">
+              <img src="<%=hotelList[i].image %>"></img>
+              <p><%=hotelList[i].hotel_name %></p>
+              <p><%=hotelList[i].city %></p>
+              <p><%=hotelList[i].street %></p>
+              <p><%=hotelList[i].postal_code %></p>
+              <p><%=hotelList[i].email %></p>
+              <p>$<%=hotelList[i].price %></p>
+              <p>
+                
+                <a  href="/hotel_update/<%=hotelList[i]._id %>">update</a>
+                <a href="javascript:del('<%=hotelList[i]._id %>')">delete</a>
+                
+                <a href="/hotel_book/<%=hotelList[i]._id %>">book</a>
+            </p>
+
+        </div>
+        <%}%>
+
+    </div>
+
+    </div>
+
+
+    <div style="clear:both"></div>
+
+
+
+  
+    <div class="hotel-add" ng-if="data.current == 2">
+        <h3>hotel add</h3>   
+          <form class="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;'>
+    
+          <div class="book-add-item">
+              <span class="book-add-item-name">hotel_name:</span>
+              
+              <input type="text"  id="hotel_name"/> </div>
+    
+          <div class="book-add-item">
+          <span class="book-add-item-name">street:</span>
+              <input type="text" id="street"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">city:</span>
+          <input type="text" id="city"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">postal_code:</span>
+          <input type="text"  id="postal_code"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">price:</span>
+          <input type="text" id="price" name="price"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">email:</span>
+          <input type="text" id="email" name="email"/> </div>
+          <div class="book-add-item">
+          <span class="book-add-item-name">image:</span>
+          <input type="file" id="pic" name="pic"/> </div>
+          
+    
+    
+          <div class="book-add-item"></div><button type="button" onclick="handle()">save</button></div>
+          </form>
+      </div>    
+
+
+      <div style="clear:both"></div>
+
+      <div id="books" ng-if="data.current == 3">
+   
+      <div class="content">
+  
+          <table border="1" cellspacing="0" style="width: 700px;margin: auto;">
+              <tr>
+                  <th>hotel_id</th>
+                  <th>booking_date</th>
+                  <th>booking_start</th>
+                  <th>booking_end</th>
+  
+              </tr>
+  
+       
+  
+          <% for(var i=0;i<bookHotelList.length;i++){%>
+  
+          <tr>
+  
+              <td><%=bookHotelList[i].hotel_id %></td>
+              <td><%=bookHotelList[i].booking_date %></td>
+              <td><%=bookHotelList[i].booking_start %></td>
+              <td><%=bookHotelList[i].booking_end %></td>
+  
+          </tr>
+  
+          <%}%>
+  
+      </table>
+    
+    
+      </div>      
+     </div>
+    
+
+    
+
+</body>
+</html>
+<script type="text/javascript" src="/resources/jquery-3.1.0.min.js"></script>
+<script>
+
+    var app = angular.module('hotelapp', []);
+    app.run(function ($rootScope) {
+      $rootScope.data = {
+        current: "1" 
+      };
+      $rootScope.actions =
+      {
+        setCurrent: function (param) {
+          $rootScope.data.current = param;
+        }
+      }
+    })
+
+
+    function handle() {
+        let file = document.getElementById("pic").files[0];
+        var hotel_name=$.trim($("#hotel_name").val());
+        var street=$.trim($("#street").val());
+        var city=$.trim($("#city").val());
+        var postal_code=$.trim($("#postal_code").val());
+        var price=$.trim($("#price").val());
+        var email=$.trim($("#email").val());
+
+
+        var formData = new FormData();
+        formData.append("pic",file);
+
+        formData.append("hotel_name",hotel_name);
+        formData.append("street",street);
+        formData.append("city",city);
+        formData.append("postal_code",postal_code);
+        formData.append("price",price);
+        formData.append("email",email);
+
+        $.ajax({
+            type: 'POST',
+            url: '/hotel_add',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //$(".newImg").attr("src", data.filePath);
+                if(data.err){
+                    // alert(data.message);
+                    
+     
+                    alert(data.msg);
+                }else{
+                    window.location.href='/';
+
+                }
+
+            },
+            error: function (err) {
+                console.log(err.message);
+            }
+        })
+    }
+
+
+    function del(_id) {
+        if(confirm('sure delete?')){
+            $.ajax({
+                url:'/hotel_delete',
+                data:{
+                    _id:_id
+                },
+                type:'post',
+                dataType:'json',
+                success:function (data) {
+                    if(data.err){
+                       // alert(data.message);
+                        
+   
+                        alert(data.msg);
+                    }else{
+                        window.location.href='/';
+
+                    }
+                }
+            });
+        }
+
+    }
+
+</script>
